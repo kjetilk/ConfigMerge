@@ -13,6 +13,8 @@ use overload (
     'fallback' => 1
 );
 
+use FindBin qw($Script);
+
 use vars qw($VERSION);
 $VERSION = '1.01';
 
@@ -398,6 +400,10 @@ sub new {
     # Setup callbacks
     $self->_init_callback( $_, $params->{$_} )
         foreach qw(skip is_local load_as sort);
+
+    my $scriptname = uc($Script);
+    $scriptname =~ s/\W//g;
+    $params->{path} = $ENV{$scriptname . '_CONFIG'} unless ($params->{path});
 
     my $path = $params->{path}
         or die( "Configuration directory not specified when creating a new "
