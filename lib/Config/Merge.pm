@@ -402,7 +402,7 @@ sub new {
         foreach qw(skip is_local load_as sort);
 
     my $scriptname = uc($Script);
-    $scriptname =~ s/\W//g;
+    $scriptname =~ s/\W/_/g;
     $params->{path} = $ENV{$scriptname . '_CONFIG'} unless ($params->{path});
 
     my $path = $params->{path}
